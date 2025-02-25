@@ -1,3 +1,15 @@
+"use client";
+
+import { trpc } from "@/utils/trpc";
+
 export default function Home() {
-  return <h1>index</h1>;
+  const hello = trpc.hello.useQuery("TRPC");
+
+  if (!hello.data) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <h1>{hello.data}</h1>
+    </div>
+  );
 }

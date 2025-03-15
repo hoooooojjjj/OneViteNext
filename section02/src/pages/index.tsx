@@ -1,7 +1,3 @@
-"use client";
-
-import { trpc } from "@/utils/trpc";
-
 export default function Home() {
-  return <div></div>;
+  return <div>Hello World</div>;
 }

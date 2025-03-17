@@ -1,18 +1,22 @@
 import { useRouter } from "next/router";
+import React from "react";
 
-export default function Home() {
+function index() {
   const router = useRouter();
 
+  console.log(router);
   return (
     <div>
-      Home
+      index
       <button
         onClick={() => {
-          router.push("/about");
+          router.back();
         }}
       >
-        go about
+        go back
       </button>
     </div>
   );
 }
+
+export default index;

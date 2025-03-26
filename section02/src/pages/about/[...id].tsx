@@ -4,10 +4,9 @@ import React from "react";
 function index() {
   const router = useRouter();
 
-  console.log(router);
   return (
     <div>
-      index
+      about
       <button
         onClick={() => {
           router.back();

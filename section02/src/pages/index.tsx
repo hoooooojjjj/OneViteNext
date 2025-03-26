@@ -8,7 +8,7 @@ export default function Home() {
       Home
       <button
         onClick={() => {
-          router.push("/about");
+          router.push("/about/1");
         }}
       >
         go about

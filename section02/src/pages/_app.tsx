@@ -7,7 +7,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Link href={"/"}>home</Link>
       &nbsp;
-      <Link href={"/about/1"}>about</Link>
+      <Link href={"/about/1"} prefetch={false}>
+        about
+      </Link>
       <Component {...pageProps} />
     </>
   );

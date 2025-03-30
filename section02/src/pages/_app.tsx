@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Link href={"/"}>home</Link>
-      &nbsp;
+      {/* prefetch={false} 속성을 통해 prefetch를 막을 수 있다. */}
       <Link href={"/about/1"} prefetch={false}>
         about
       </Link>

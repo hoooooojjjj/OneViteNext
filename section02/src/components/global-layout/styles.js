@@ -23,6 +23,11 @@ export const HeaderLink = styled(Link)({
   textDecoration: "none",
 });
 
-export const Main = styled.main({});
+export const Main = styled.main({
+  paddingTop: 10,
+});
 
-export const Footer = styled.footer({});
+export const Footer = styled.footer({
+  padding: "100px 0px",
+  color: "gray",
+});

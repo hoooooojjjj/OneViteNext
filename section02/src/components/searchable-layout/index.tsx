@@ -27,10 +27,9 @@ function SearchableLayout({ children }: { children: ReactNode }) {
       <SearchForm onSubmit={handleSubmit(handleSubmitSearch)}>
         <input
           placeholder="검색어를 입력하세요."
-          {...register("searchValue")}
+          {...register("searchValue", { required: true })}
         />
         <button>검색</button>
-        {errors.searchValue && <span>This field is required</span>}
       </SearchForm>
       {children}
     </div>

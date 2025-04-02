@@ -1,17 +1,11 @@
 import SearchableLayout from "@/components/searchable-layout";
-import React, { ReactNode, useEffect } from "react";
-
-async function getTime() {
-  const time = await fetch("http://localhost:3000/api/time");
-  const jsonData = await time.json();
-  console.log(jsonData);
-}
+import { useRouter } from "next/router";
+import { ReactNode } from "react";
 
 export default function Search() {
-  useEffect(() => {
-    getTime();
-  }, []);
-  return <div>Search</div>;
+  const router = useRouter();
+  const q = router.query.q;
+  return <div>Search : {q}</div>;
 }
 
 Search.getLayout = (page: ReactNode) => {

@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import SearchableLayout from "@/components/searchable-layout";
+import React, { ReactNode, useEffect } from "react";
 
 async function getTime() {
   const time = await fetch("http://localhost:3000/api/time");
@@ -6,11 +7,13 @@ async function getTime() {
   console.log(jsonData);
 }
 
-function Search() {
+export default function Search() {
   useEffect(() => {
     getTime();
   }, []);
   return <div>Search</div>;
 }
 
-export default Search;
+Search.getLayout = (page: ReactNode) => {
+  return <SearchableLayout>{page}</SearchableLayout>;
+};

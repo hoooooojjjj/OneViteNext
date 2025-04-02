@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -6,17 +7,18 @@ interface SearchInput {
 }
 
 function SearchableLayout({ children }: { children: ReactNode }) {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<SearchInput>();
 
   const handleSubmitSearch: SubmitHandler<SearchInput> = (
     data: SearchInput
   ) => {
-    reset();
+    router.push(`/search?q=${data.searchValue}`);
   };
 
   return (

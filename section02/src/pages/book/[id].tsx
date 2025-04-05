@@ -9,10 +9,26 @@ import {
   Description,
 } from "./styles";
 import { Container } from "../styles";
+import getInterFace from "@/api/instanse";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { BookType } from "@/types";
 
-export default function Book() {
-  const router = useRouter();
-  const id = router.query.id;
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const targetBook = await getInterFace<BookType>(`book/${context.params!.id}`);
+
+  return {
+    props: { targetBook },
+  };
+};
+
+export default function Book({
+  targetBook,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  if (!targetBook) {
+    return null;
+  }
 
   const {
     id: bookId,
@@ -22,7 +38,7 @@ export default function Book() {
     author,
     publisher,
     coverImgUrl,
-  } = books[0];
+  } = targetBook;
   return (
     <Container>
       <ImgContainer coverImgUrl={coverImgUrl}>

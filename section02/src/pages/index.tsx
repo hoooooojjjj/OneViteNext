@@ -1,18 +1,18 @@
 import SearchableLayout from "@/components/searchable-layout";
 import { ReactNode, useEffect } from "react";
 import { AllBooksSection, Container, Header, RecommendSection } from "./styles";
-import books from "@/mock/books.json";
 import BookItem from "@/components/book-item";
 import { InferGetServerSidePropsType } from "next";
-import { getAllBooks, getRandomBooks } from "@/api/book";
+import { BookType } from "@/types";
+import getInterFace from "@/api/instanse";
 
 // SSR을 활용할 수 있는 함수
 // 해당 page로 요청이 들어온 경우 서버에서 js를 실행시킬 때 같이 서버에서 실행됨.
 // 컴포넌트가 렌더링(클라이언트에서 === 수화단계)되기 전에 데이터를 fetch하여 가져오고, 이를 초기 렌더링 시 props로 전달받을 수 있음
 export const getServerSideProps = async () => {
   const [randomBooks, AllBooks] = await Promise.all([
-    await getRandomBooks(),
-    await getAllBooks(),
+    await getInterFace<BookType[]>("book/random"),
+    await getInterFace<BookType[]>("book/random"),
   ]);
   return {
     props: { randomBooks, AllBooks },
@@ -30,6 +30,10 @@ export default function Home({
   // useEffect(() => {
   //   window.alert();
   // }, []);
+
+  if (!randomBooks || !AllBooks) {
+    return null;
+  }
 
   return (
     <Container>

@@ -1,4 +1,4 @@
-import type { BookItem } from "@/types";
+import type { BookType } from "@/types";
 import { Author, Container, Img, SubTitle, Title } from "./styles";
 
 export default function BookItem({
@@ -9,7 +9,7 @@ export default function BookItem({
   author,
   publisher,
   coverImgUrl,
-}: BookItem) {
+}: BookType) {
   return (
     <Container href={`/book/${id}`}>
       <Img src={coverImgUrl}></Img>

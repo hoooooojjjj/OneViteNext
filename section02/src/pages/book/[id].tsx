@@ -22,7 +22,11 @@ import { useRouter } from "next/router";
 export const getStaticPaths = () => {
   return {
     paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
-    fallback: "blocking",
+    fallback: true,
+    // fallback : false -> 미리 정해둔 경로가 아니면 404 페이지
+    // fallback : "blocking" -> 미리 정해둔 경로가 아니면 SSR 방식으로 생성 후 렌더링, 이때 static하게 서버에 저장 후 이후 요청 부턴 SSG로 응답
+    // fallback : true -> blocking + SSR 방식으로 생성 시 응답이 길어질 때 피드백을 주기 위해 fallback 페이지를 보여줬다가 생성 후 해당 페이지 렌더링
+    // fallback 페이지는 static 페이지에서 props가 전달되지 않은 상태(데이터 fetching 상태 등), 이때 로딩 인디케이터등을 보여준 후에 페이지 전체 렌더링을 해서 UX 향상 가능
   };
 };
 

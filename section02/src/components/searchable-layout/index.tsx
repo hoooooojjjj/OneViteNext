@@ -10,11 +10,7 @@ interface SearchInput {
 function SearchableLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SearchInput>();
+  const { register, handleSubmit } = useForm<SearchInput>();
 
   const handleSubmitSearch: SubmitHandler<SearchInput> = (
     data: SearchInput

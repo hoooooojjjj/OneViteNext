@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { Container, Footer, Header, Main, HeaderLink } from "./styles";
-import Link from "next/link";
 
 function GlobalLayout({ children }: { children: ReactNode }) {
   return (

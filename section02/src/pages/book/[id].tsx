@@ -8,15 +8,25 @@ import {
 } from "../../styles/book";
 import { Container } from "../../styles";
 import getInterFace from "@/api/instanse";
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import {
+  GetServerSidePropsContext,
+  GetStaticPropsContext,
+  InferGetServerSidePropsType,
+  InferGetStaticPropsType,
+} from "next";
 import { BookType } from "@/types";
+import { useRouter } from "next/router";
 
-// SSR을 활용할 수 있는 함수
-// 해당 page로 요청이 들어온 경우 서버에서 js를 실행시킬 때 같이 서버에서 실행됨.
-// 컴포넌트가 렌더링(클라이언트에서 === 수화단계)되기 전에 데이터를 fetch하여 가져오고, 이를 초기 렌더링 시 props로 전달받을 수 있음
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+// SSG를 통해 렌더링할 때 동적 경로 페이지에 대해 적용하기 위해서 미리 빌드타임에 생성할 path를 지정해줄 수 있음.
+// 이러면 빌드 타임에 지정된 경로의 페이지는 미리 생성됨.
+export const getStaticPaths = () => {
+  return {
+    paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const targetBook = await getInterFace<BookType>(`book/${context.params!.id}`);
 
   return {
@@ -26,14 +36,11 @@ export const getServerSideProps = async (
 
 export default function Book({
   targetBook,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // window.alert(); -> 이런 식으로 컴포넌트에서 브라우저(클라이언트)에서만 가능한 코드를 작성하면 - ReferenceError: window is not defined 에러가 발생함.
-  // 즉, 기본적으로 next는 서버에서 먼저 js를 실행시키기 때문에 이 과정에서 window 객체를 찾을 수가 없기 때문
-
-  // 가장 기본적인 해결법은 useEffect를 사용하면 컴포넌트가 마운트된 이후 코드가 실행되기 때문에 window 객체를 찾을 수 있음
-  // useEffect(() => {
-  //   window.alert();
-  // }, []);
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>어쩌라고</div>;
+  }
   if (!targetBook) {
     return null;
   }

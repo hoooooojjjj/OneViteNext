@@ -8,12 +8,7 @@ import {
 } from "../../styles/book";
 import { Container } from "../../styles";
 import getInterFace from "@/api/instanse";
-import {
-  GetServerSidePropsContext,
-  GetStaticPropsContext,
-  InferGetServerSidePropsType,
-  InferGetStaticPropsType,
-} from "next";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { BookType } from "@/types";
 import { useRouter } from "next/router";
 

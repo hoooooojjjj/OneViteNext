@@ -22,6 +22,8 @@ export const getStaticProps = async () => {
   ]);
   return {
     props: { randomBooks, AllBooks },
+    revalidate: 3, // ISR(증분 정적 생성 방식) -> 기존 SSG는 한 번 빌드타임에 생성된 이후 재생성되지 않고 모든 요청에 대해 동일한 페이지를 반환함.
+    // 그러나 ISR을 사용하면, 초반에는 SSG처럼 빌드 타임에 생성된 페이지를 반환하다가 재검증 시간이 초과된 이후부턴 들어온 요청에 대해 새롭게 페이지를 생성하여 반환함.
   };
 };
 
